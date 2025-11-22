@@ -14,7 +14,7 @@ pipeline {
         stage('deploy custom index page') {
             steps {
                 sh '''
-                sudo rm -f /var/www/html/index.nginx-debian.html
+                #sudo rm -f /var/www/html/index.nginx-debian.html
                 sudo cp index.html /var/www/html/index.html
                 sudo systemctl restart nginx 
                 '''
