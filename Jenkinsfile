@@ -1,22 +1,31 @@
 pipeline {
-    agent any 
+    agent any
 
     stages {
-        stage('install nginx') {
+
+        stage('Checkout Code') {
+            steps {
+                // Simple git pull
+                git branch: 'main',
+                    url: 'https://github.com/zebaaaa/deploy-jenkins.git'
+            }
+        }
+
+        stage('Install Nginx') {
             steps {
                 sh '''
-                sudo apt update -y 
-                sudo apt install nginx -y
+                    sudo apt update -y
+                    sudo apt install nginx -y
                 '''
             }
         }
 
-        stage('deploy custom index page') {
+        stage('Deploy Custom Index Page') {
             steps {
                 sh '''
-                #sudo rm -f /var/www/html/index.nginx-debian.html
-                sudo cp index.html /var/www/html/index.html
-                sudo systemctl restart nginx 
+                    sudo rm -f /var/www/html/index.nginx-debian.html
+                    sudo cp index.html /var/www/html/index.html
+                    sudo systemctl restart nginx
                 '''
             }
         }
